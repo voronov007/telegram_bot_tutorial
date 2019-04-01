@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 
 import os
 
+from pymongo import MongoClient
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -73,14 +75,15 @@ WSGI_APPLICATION = 'tb_tutorial.wsgi.application'
 
 
 # Database
-# https://docs.djangoproject.com/en/1.11/ref/settings/#databases
-
+# https://docs.djangoproject.com/en/2.1/ref/settings/#databases
+MONGO_CLIENT = MongoClient("mongodb://localhost:27017/")
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": os.path.join(BASE_DIR, "..", "tb_tutorial.sqlite3"),
     }
 }
+
 
 
 # Password validation
