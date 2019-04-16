@@ -1,10 +1,11 @@
 import json
+import os
 
+import requests
 from django.http import JsonResponse
 from django.views import View
+
 from .models import tb_tutorial_collection
-import requests
-import os
 
 TELEGRAM_URL = "https://api.telegram.org/bot"
 TUTORIAL_BOT_TOKEN = os.getenv("TUTORIAL_BOT_TOKEN", "error_token")
@@ -44,8 +45,14 @@ class TutorialBotView(View):
             tb_tutorial_collection.save(chat)
             msg = "The Tutorial bot was restarted"
             self.send_message(msg, t_chat["id"])
+        else:
+            msg = "Unknown command"
+            self.send_message(msg, t_chat["id"])
 
-    def send_message(self, message, chat_id):
+        return JsonResponse({"ok": "POST request processed"})
+
+    @staticmethod
+    def send_message(message, chat_id):
         data = {
             "chat_id": chat_id,
             "text": message,
@@ -54,7 +61,3 @@ class TutorialBotView(View):
         response = requests.post(
             f"{TELEGRAM_URL}{TUTORIAL_BOT_TOKEN}/sendMessage", data=data
         )
-
-
-
-
