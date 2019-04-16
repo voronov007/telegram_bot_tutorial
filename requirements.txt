@@ -1,3 +1,4 @@
-Django==2.1.7
-pymongo==3.7.2
+Django==2.1.7  # web server
+gunicorn==19.9.0  # server
+pymongo==3.7.2  # mongo db
 requests==2.21.0
